@@ -1,29 +1,106 @@
-# Create T3 App
+# URL Shortener with QR Code Generation
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This project is a URL shortener with QR code generation functionality, built using the T3 Stack. It was bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Learn More](#learn-more)
+- [Contributing](#contributing)
+- [License](#license)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Overview
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+This application allows users to shorten long URLs and generate QR codes for the shortened URLs. It is designed to be simple and intuitive, leveraging modern web technologies to provide a seamless experience.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Features
+
+- Shorten long URLs
+- Generate QR codes for shortened URLs
+- Database management with Drizzle
+- Styled using Tailwind CSS
+- API routes with zod validation
+
+## Technologies Used
+
+This project is built with the following technologies:
+
+- **Next.js**: A React framework for building fast web applications
+- **Drizzle**: Lightweight database toolkit
+- **Tailwind CSS**: Utility-first CSS framework
+- **Zod**: TypeScript-first schema validation with static type inference
+
+
+## Getting Started
+
+To get started with this project, follow these steps:
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/yourusername/url-shortener.git
+    cd url-shortener
+    ```
+
+2. **Install dependencies:**
+
+    ```bash
+    pnpm install
+    ```
+
+3. **Set up environment variables:**
+
+   Create a `.env` file in the root of the project and add your environment variables. Refer to `.env.example` for the variables you need to set.
+
+4. **Run the development server:**
+
+    ```bash
+    pnpm dev
+    ```
+
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Usage
+
+1. **Shortening a URL:**
+    - Enter the long URL in the input field.
+    - Click on the "Shorten URL" button.
+    - The shortened URL will be displayed along with a QR code.
+
+2. **Scanning a QR code:**
+    - Use any QR code scanning app to scan the generated QR code.
+    - The app will redirect you to the shortened URL.
+
+## Deployment
+
+To deploy this application, follow one of our deployment guides:
+
+- **Vercel**: [Deploy on Vercel](https://vercel.com/docs)
+- **Netlify**: [Deploy on Netlify](https://docs.netlify.com)
+- **Docker**: [Deploy with Docker](https://docs.docker.com)
 
 ## Learn More
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+To learn more about the T3 Stack and the technologies used in this project, check out the following resources:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- **T3 Stack Documentation**: [Learn the T3 Stack](https://t3.gg/docs)
+- **Next.js Documentation**: [Next.js Docs](https://nextjs.org/docs)
+- **Drizzle Documentation**: [Drizzle Docs](https://drizzle.team/docs)
+- **Tailwind CSS Documentation**: [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- **Zod**: [Zod](https://zod.dev/)
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Contributing
 
-## How do I deploy this?
+We welcome contributions! Please open an issue or submit a pull request with your changes. For major changes, please open an issue first to discuss what you would like to change.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+---
+
+If you have any questions or need help, feel free to join our [Discord community](https://discord.com/invite/t3) and ask for assistance. Happy coding!
