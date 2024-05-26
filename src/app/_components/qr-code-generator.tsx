@@ -8,7 +8,7 @@ export default function QRCodeGenerator({ shortUrl }: { shortUrl: string }) {
   const downloadQRCode = async () => {
     if (qrRef.current) {
       try {
-        const dataUrl = await toPng(qrRef.current);
+        const dataUrl = (await toPng(qrRef.current)) as string;
         const link = document.createElement("a");
         link.href = dataUrl;
         link.download = "qrcode.png";
