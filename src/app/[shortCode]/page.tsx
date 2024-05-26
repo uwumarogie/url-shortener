@@ -1,5 +1,5 @@
-import { ClientRedirect } from "@/app/_components/client";
 import { getUrl } from "@/server/actions";
+import {redirect} from "next/navigation";
 
 export default async function Shortcode({
   params,
@@ -8,10 +8,11 @@ export default async function Shortcode({
     shortCode: string;
   };
 }) {
+
   const originalUrl = await getUrl(params.shortCode);
 
   if (originalUrl) {
-    return <ClientRedirect originalUrl={originalUrl} />;
+    return redirect(originalUrl);
   } else {
     return <h1>404 - URL Not Found</h1>;
   }
