@@ -71,7 +71,7 @@ export default function HomePage() {
             <button
               onClick={async () => {
                 await window.navigator.clipboard
-                  .writeText(`http://localhost:3000/${shortCode}`)
+                  .writeText(`${window.location.origin}/${shortCode}`)
                   .then(() => alert("Copied"))
                   .catch(() => alert("Failed to copy"));
               }}
