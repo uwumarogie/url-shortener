@@ -1,20 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import * as z from "zod"
+import * as z from "zod";
+import QRCodeGenerator from "@/app/_components/qr-code-generator";
 
 const responseSchema = z.object({
   success: z.boolean(),
   shortCode: z.string().optional(),
-  error: z.string().optional()
-})
+  error: z.string().optional(),
+});
 
 export default function HomePage() {
   const [originalUrl, setOriginalUrl] = useState("");
-  const [shortCode, setShortCode] = useState("");
+  const [shortCode, setShortCode] = useState<string | undefined>(undefined);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-   e.preventDefault();
+    e.preventDefault();
     const response = await fetch("/api/shorten", {
       method: "POST",
       headers: {
@@ -63,14 +64,27 @@ export default function HomePage() {
           <h2 className="mb-2 text-lg font-semibold text-gray-700">
             Short URL
           </h2>
-          <div className="flex items-center justify-between rounded-md bg-gray-200 px-4 py-2">
+          <div className="flex items-center justify-between rounded-xl bg-gray-200 px-4 py-2">
             <span className="truncate text-gray-800">
-              {"http://localhost:3000/" + shortCode}
+              {`${window.location.origin}/${shortCode ?? ""}`}
             </span>
-            <button onClick={async () => {
-              await window.navigator.clipboard.writeText(`http://localhost:3000/${shortCode}`).then(() => alert("Copied")).catch(() => alert("Failed to copy"))
-            }} >Copy</button>
+            <button
+              onClick={async () => {
+                await window.navigator.clipboard
+                  .writeText(`http://localhost:3000/${shortCode}`)
+                  .then(() => alert("Copied"))
+                  .catch(() => alert("Failed to copy"));
+              }}
+              className="rounded-l-none"
+            >
+              Copy
+            </button>
           </div>
+          {shortCode && (
+            <QRCodeGenerator
+              shortUrl={`${window.location.origin}/${shortCode}`}
+            />
+          )}
         </div>
       </div>
     </div>

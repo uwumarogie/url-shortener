@@ -6,8 +6,8 @@ const config = {
   url: process.env.DATABASE_URL,
   schema: "./src/server/db/schema.ts",
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 };
 
 export default config;
