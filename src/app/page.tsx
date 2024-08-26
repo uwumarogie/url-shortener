@@ -14,6 +14,10 @@ export default function HomePage() {
   const [originalUrl, setOriginalUrl] = useState("");
   const [shortCode, setShortCode] = useState<string | undefined>(undefined);
 
+  if (typeof window === undefined) {
+    return <div>Loading...</div>;
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch("/api/shorten", {
@@ -62,29 +66,37 @@ export default function HomePage() {
           </button>
         </form>
         <div className="mt-6">
-          <h2 className="mb-2 text-lg font-semibold text-gray-700">
-            Short URL
-          </h2>
-          <div className="flex items-center justify-between rounded-xl bg-gray-200 px-4 py-2">
-            <span className="truncate text-gray-800">
-              {`${window.location.origin}/${shortCode ?? ""}`}
-            </span>
-            <button
-              onClick={async () => {
-                await window.navigator.clipboard
-                  .writeText(`${window.location.origin}/${shortCode}`)
-                  .then(() => alert("Copied"))
-                  .catch(() => alert("Failed to copy"));
-              }}
-              className="rounded-l-none"
-            >
-              Copy
-            </button>
-          </div>
           {shortCode && (
-            <QRCodeGenerator
-              shortUrl={`${window.location.origin}/${shortCode}`}
-            />
+            <div className="mt-6">
+              <h2 className="mb-2 text-lg font-semibold text-gray-700">
+                Short URL
+              </h2>
+              <div className="flex items-center justify-between rounded-xl bg-gray-200 px-4 py-2">
+                {typeof window !== "undefined" && (
+                  <>
+                    <span className="truncate text-gray-800">
+                      {`${window.location.origin}/${shortCode}`}
+                    </span>
+                    <button
+                      onClick={async () => {
+                        await window.navigator.clipboard
+                          .writeText(`${window.location.origin}/${shortCode}`)
+                          .then(() => alert("Copied"))
+                          .catch(() => alert("Failed to copy"));
+                      }}
+                      className="rounded-l-none"
+                    >
+                      Copy
+                    </button>
+                  </>
+                )}
+              </div>
+              {typeof window !== "undefined" && shortCode && (
+                <QRCodeGenerator
+                  shortUrl={`${window.location.origin}/${shortCode}`}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
