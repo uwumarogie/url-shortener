@@ -3,9 +3,10 @@ import * as z from "zod";
 import { url } from "@/server/db/schema";
 import { db } from "@/server/db";
 import { generateShortCode } from "@/app/_util/generate-short-code";
-import { eq } from "drizzle-orm/sql/expressions/conditions";
+import { eq, and } from "drizzle-orm/sql/expressions/conditions";
 const requestSchema = z.object({
   url: z.string().url(),
+  userId: z.string().uuid(),
 });
 
 type RequestData = z.infer<typeof requestSchema>;
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     const isUrlAlreadyExists = await db
       .select()
       .from(url)
-      .where(eq(url.originalUrl, data.url));
+      .where(and(eq(url.originalUrl, data.url), eq(url.userId, data.userId)));
 
     if (isUrlAlreadyExists.length > 0) {
       return new NextResponse(
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
         originalUrl: data.url,
         shortCode: shortCode,
         updatedAt: new Date(),
+        userId: data.userId,
       })
       .execute();
 
