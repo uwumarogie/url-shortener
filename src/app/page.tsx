@@ -50,7 +50,7 @@ export default function HomePage() {
               className="mb-2 block font-medium text-gray-700"
               htmlFor="longUrl"
             >
-              LONG URL
+              URL to be shorten
             </label>
             <input
               className="w-full"
