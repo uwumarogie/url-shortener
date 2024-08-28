@@ -1,28 +1,41 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { URL } from "../_util/zod";
 import { getManyUrlResponseSchema } from "../_util/zod";
-import { URL } from "../_util/zod";
-import { fetchData } from "../_util/generic-fetch";
 
 export default function AllShortenURLFromUser() {
   const [urls, setUrls] = useState<URL[]>([]);
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    async function retrieveUrl() {
-      const result = await fetchData(
-        "/api/retrieve-url",
-        { userId },
-        getManyUrlResponseSchema,
-      );
+    const storeUserId = localStorage.getItem("userId");
 
-      if (result.success) {
-        setUrls(result.urls);
+    setUserId(storeUserId ?? "");
+    async function retrieveUrl() {
+      const response = await fetch(`/api/retrieve-url`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      });
+      const data: unknown = await response.json();
+      const validData = getManyUrlResponseSchema.parse(data);
+
+      if (validData.success) {
+        setUrls(validData.urls);
+      } else {
+        console.error("Failed to fetch urls:", validData.error);
       }
     }
-    retrieveUrl();
-  }, [userId, urls]);
+
+    if (storeUserId) {
+      retrieveUrl().catch((error) =>
+        console.error("Failed to fetch urls:", error),
+      );
+    }
+  }, [userId]);
 
   return (
     <div className="flex flex-row items-center justify-center text-white">

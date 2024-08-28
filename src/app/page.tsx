@@ -5,16 +5,11 @@ import QRCodeGenerator from "@/app/_components/qr-code-generator";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { responseShortenUrlSchema } from "./_util/zod";
-import { fetchData } from "./_util/generic-fetch";
 
 export default function HomePage() {
   const [originalUrl, setOriginalUrl] = useState("");
   const [shortCode, setShortCode] = useState<string | undefined>(undefined);
   const userRef = useRef("");
-
-  if (typeof window === undefined) {
-    return <div>Loading...</div>;
-  }
 
   useEffect(() => {
     const userId = uuidv4();
@@ -22,19 +17,25 @@ export default function HomePage() {
     localStorage.setItem("userId", userId);
   }, []);
 
+  if (typeof window === undefined) {
+    return <div>Loading...</div>;
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const result = await fetchData(
-      "shorten",
-      { url: originalUrl, userId: userRef.current },
-      responseShortenUrlSchema,
-    );
-
-    if (result.success) {
-      setShortCode(result.shortCode ?? "");
+    const response = await fetch(`/api/shorten`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: originalUrl, userId: userRef.current }),
+    });
+    const data: unknown = await response.json();
+    const validData = responseShortenUrlSchema.parse(data);
+    if (validData.success) {
+      setShortCode(validData.shortCode ?? "");
     } else {
-      console.error("Error:", result.error);
+      console.error("Error:", validData.error);
     }
   };
 
