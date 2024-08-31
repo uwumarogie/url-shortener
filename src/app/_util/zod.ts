@@ -18,3 +18,8 @@ export const getManyUrlResponseSchema = z.object({
   urls: z.array(z.object({ originalUrl: z.string(), shortCode: z.string() })),
   error: z.string().optional(),
 });
+
+export const deleteUrlResponseSchema = z.object({
+  success: z.boolean(),
+  error: z.string().optional(),
+});

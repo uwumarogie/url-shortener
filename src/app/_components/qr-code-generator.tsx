@@ -26,7 +26,7 @@ export default function QRCodeGenerator({ shortUrl }: { shortUrl: string }) {
       <div ref={qrRef} className="bg-white p-4">
         <QRCode value={shortUrl} size={256} />
       </div>
-      <button onClick={downloadQRCode}>Download QR Code</button>
+      <button onClick={downloadQRCode} className="text-black hover:bg-gray-200 focus:bg-gray-200 p-3 rounded-xl">Download QR Code</button>
     </div>
   );
 }
