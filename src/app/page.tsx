@@ -44,7 +44,7 @@ export default function HomePage() {
       <Link
         href="/get-all-shorten-urls"
         prefetch
-        className="rounded-xl bg-white p-4 hover:bg-gray-200 focus:bg-gray-200"
+        className="rounded-xl bg-white p-4 text-black hover:bg-gray-200 focus:bg-gray-200"
       >
         List your shortened URLs
       </Link>
@@ -56,7 +56,7 @@ export default function HomePage() {
           <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
             <div>
               <input
-                className="w-full rounded-xl p-4"
+                className="w-full rounded-xl p-4 text-black"
                 id="longUrl"
                 placeholder="Enter your long URL"
                 required
@@ -65,7 +65,7 @@ export default function HomePage() {
               />
             </div>
             <button
-              className="w-full rounded-xl border border-black hover:bg-gray-200 focus:bg-gray-200"
+              className="w-full rounded-xl border border-black text-black hover:bg-gray-200 focus:bg-gray-200"
               type="submit"
             >
               Shorten
@@ -90,7 +90,7 @@ export default function HomePage() {
                             .then(() => alert("Copied"))
                             .catch(() => alert("Failed to copy"));
                         }}
-                        className="rounded-l-none"
+                        className="rounded-l-none hover:text-black"
                       >
                         Copy
                       </button>
